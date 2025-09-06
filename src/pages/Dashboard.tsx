@@ -4,11 +4,8 @@ import {
     Title,
     Button,
     Grid,
-    Card,
     Text,
     Group,
-    ActionIcon,
-    Menu,
     Stack,
     Alert,
     Skeleton,
@@ -16,10 +13,6 @@ import {
 } from '@mantine/core';
 import {
     IconPlus,
-    IconDots,
-    IconEdit,
-    IconTrash,
-    IconSettings,
     IconAlertCircle,
 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';

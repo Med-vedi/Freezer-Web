@@ -9,7 +9,6 @@ import {
     Text,
     NumberInput,
     ActionIcon,
-    Badge,
     Skeleton,
     Alert,
 } from '@mantine/core';
@@ -20,7 +19,6 @@ import {
 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import { useFreezerStore } from '../store/freezerStore';
-import { useModals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import ShelfCard from './ShelfCard';
 import { Freezer } from '../types/freezer';
@@ -37,7 +35,6 @@ export default function FreezerDrawer({ opened, onClose, freezer }: FreezerDrawe
     const [shelfCount, setShelfCount] = useState(7);
     const [updatingCount, setUpdatingCount] = useState(false);
 
-    const modals = useModals();
 
     useEffect(() => {
         if (opened && freezer) {

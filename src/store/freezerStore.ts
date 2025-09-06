@@ -23,7 +23,7 @@ interface FreezerState {
     deleteShelf: (id: string) => Promise<{ error: any }>;
 
     // Realtime subscriptions
-    subscribeToFreezers: () => () => void;
+    subscribeToFreezers: () => Promise<() => void>;
     subscribeToShelves: (freezerId: string) => () => void;
 }
 
@@ -59,7 +59,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             set({ freezers: data || [], loading: false });
         } catch (error) {
             console.error('Error fetching freezers:', error);
-            set({ error: error.message, loading: false });
+            set({ error: error instanceof Error ? error.message : 'Unknown error', loading: false });
         }
     },
 
@@ -98,7 +98,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             return { error: null };
         } catch (error) {
             console.error('Error creating freezer:', error);
-            return { error: error.message };
+            return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
     },
 
@@ -117,7 +117,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             return { error: null };
         } catch (error) {
             console.error('Error updating freezer:', error);
-            return { error: error.message };
+            return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
     },
 
@@ -136,7 +136,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             return { error: null };
         } catch (error) {
             console.error('Error deleting freezer:', error);
-            return { error: error.message };
+            return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
     },
 
@@ -171,7 +171,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             set({ shelves: data || [], loading: false });
         } catch (error) {
             console.error('Error fetching shelves:', error);
-            set({ error: error.message, loading: false });
+            set({ error: error instanceof Error ? error.message : 'Unknown error', loading: false });
         }
     },
 
@@ -189,7 +189,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             return { error: null };
         } catch (error) {
             console.error('Error creating shelf:', error);
-            return { error: error.message };
+            return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
     },
 
@@ -248,7 +248,7 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             return { error: null };
         } catch (error) {
             console.error('Error updating shelf count:', error);
-            return { error: error.message };
+            return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
     },
 
@@ -270,12 +270,12 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
             return { error: null };
         } catch (error) {
             console.error('Error deleting shelf:', error);
-            return { error: error.message };
+            return { error: error instanceof Error ? error.message : 'Unknown error' };
         }
     },
 
-    subscribeToFreezers: () => {
-        const { data: { user } } = supabase.auth.getUser();
+    subscribeToFreezers: async () => {
+        const { data: { user } } = await supabase.auth.getUser();
         if (!user) return () => { };
 
         const subscription = supabase

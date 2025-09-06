@@ -6,7 +6,6 @@ import {
     Stack,
     Text,
     Title,
-    List,
     ThemeIcon,
     LoadingOverlay,
     Modal,
@@ -16,7 +15,6 @@ import {
 } from '@mantine/core';
 import {
     IconInfoCircle,
-    IconCheck,
     IconPlus,
     IconPackage,
     IconStar,
@@ -78,18 +76,18 @@ export default function InitialProductsSetup({ opened, onClose, onProductsCreate
         }
     };
 
-    const sampleProducts = [
-        'Milk',
-        'Bread',
-        'Eggs',
-        'Chicken Breast',
-        'Apples',
-        'Bananas',
-        'Cheese',
-        'Butter',
-        'Rice',
-        'Pasta'
-    ];
+    // const sampleProducts = [
+    //     'Milk',
+    //     'Bread',
+    //     'Eggs',
+    //     'Chicken Breast',
+    //     'Apples',
+    //     'Bananas',
+    //     'Cheese',
+    //     'Butter',
+    //     'Rice',
+    //     'Pasta'
+    // ];
 
     return (
         <Modal

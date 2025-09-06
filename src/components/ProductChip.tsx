@@ -8,7 +8,6 @@ import {
     Menu,
     NumberInput,
     Stack,
-    ThemeIcon,
 } from '@mantine/core';
 import {
     IconDots,
@@ -22,7 +21,7 @@ import { useTranslation } from 'react-i18next';
 import { useModals } from '@mantine/modals';
 import { notifications } from '@mantine/notifications';
 import { Product } from '../types/product';
-import { getExpiryStatus, getDaysUntilExpiry, getExpiryText } from '../utils/date';
+import { getExpiryStatus, getExpiryText } from '../utils/date';
 import { supabase } from '../supabase/supabaseClient';
 
 interface ProductChipProps {
@@ -38,7 +37,7 @@ export default function ProductChip({ product, onClick, onEdit }: ProductChipPro
     const [quantity, setQuantity] = useState(product.quantity);
 
     const expiryStatus = getExpiryStatus(product.expiry_date);
-    const daysUntilExpiry = getDaysUntilExpiry(product.expiry_date);
+    // const daysUntilExpiry = getDaysUntilExpiry(product.expiry_date);
     const expiryText = getExpiryText(product.expiry_date);
 
     const getExpiryColor = (status: string) => {
@@ -88,7 +87,7 @@ export default function ProductChip({ product, onClick, onEdit }: ProductChipPro
         } catch (error) {
             notifications.show({
                 title: t('common.error'),
-                message: error.message,
+                message: error instanceof Error ? error.message : 'Unknown error',
                 color: 'red',
             });
         } finally {

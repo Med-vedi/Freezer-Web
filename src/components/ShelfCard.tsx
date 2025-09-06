@@ -10,9 +10,7 @@ import {
     Modal,
     Button,
     Grid,
-    Chip,
     Alert,
-    Skeleton,
 } from '@mantine/core';
 import {
     IconPackage,
@@ -69,14 +67,14 @@ export default function ShelfCard({ shelf, freezer }: ShelfCardProps) {
         openForm();
     };
 
-    const getExpiryColor = (status: string) => {
-        switch (status) {
-            case 'good': return 'green';
-            case 'warning': return 'yellow';
-            case 'danger': return 'red';
-            default: return 'gray';
-        }
-    };
+    // const getExpiryColor = (status: string) => {
+    //     switch (status) {
+    //         case 'good': return 'green';
+    //         case 'warning': return 'yellow';
+    //         case 'danger': return 'red';
+    //         default: return 'gray';
+    //     }
+    // };
 
     return (
         <>
