@@ -11,6 +11,8 @@ export interface Product {
     received_at: string;
     expiry_date?: string;
     notes?: string;
+    added_by_user_id?: string;
+    added_at?: string;
     created_at: string;
     updated_at: string;
     catalog?: ProductCatalog;
@@ -37,10 +39,16 @@ export interface ProductCatalog {
 
 export interface LocalizedProductCatalog {
     id: string;
-    name: string;
-    category: string;
+    name_en: string;
+    name_ru?: string;
+    name_it?: string;
+    category_en: string;
+    category_ru?: string;
+    category_it?: string;
+    description_en?: string;
+    description_ru?: string;
+    description_it?: string;
     default_unit: string;
-    description?: string;
     emoji?: string;
     is_popular?: boolean;
     is_seasonal?: boolean;
@@ -56,6 +64,8 @@ export interface CreateProductData {
     barcode?: string;
     expiry_date?: string;
     notes?: string;
+    added_by_user_id?: string;
+    added_at?: string;
 }
 
 export interface UpdateProductData {

@@ -26,12 +26,13 @@ import { supabase } from '../supabase/supabaseClient';
 import { Product, LocalizedProductCatalog, CreateProductData } from '../types/product';
 import { Shelf, Freezer } from '../types/freezer';
 import { useCatalogStore } from '../store/catalogStore';
+import ProductView from './ProductView';
 
 interface ProductFormProps {
     opened: boolean;
     onClose: () => void;
-    shelf: Shelf;
-    freezer: Freezer;
+    shelf?: Shelf | null;
+    freezer?: Freezer | null;
     product?: Product | null;
 }
 
@@ -43,6 +44,7 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
     const [selectedCatalogItem, setSelectedCatalogItem] = useState<LocalizedProductCatalog | null>(null);
     const [activeTab, setActiveTab] = useState<string | null>('catalog');
     const [searchResults, setSearchResults] = useState<LocalizedProductCatalog[]>([]);
+    const [productViewOpened, setProductViewOpened] = useState(false);
 
     const isEditing = !!product;
 
@@ -63,6 +65,11 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
     });
 
     useEffect(() => {
+        const loadInitialData = async () => {
+            const language = t('common.language', { defaultValue: 'it' });
+            await initialize(language);
+        };
+
         if (opened) {
             if (isEditing && product) {
                 form.setValues({
@@ -79,12 +86,7 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
             }
             loadInitialData();
         }
-    }, [opened, isEditing, product]);
-
-    const loadInitialData = async () => {
-        const language = t('common.language', { defaultValue: 'it' });
-        await initialize(language);
-    };
+    }, [opened, isEditing, product, form, initialize, t]);
 
     const handleSearch = async (query: string) => {
         setSearchQuery(query);
@@ -98,14 +100,30 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
 
     const handleCatalogItemSelect = (item: LocalizedProductCatalog) => {
         setSelectedCatalogItem(item);
-        form.setValues({
-            name: item.name,
-            unit: item.default_unit || 'pcs',
-            category: item.category || '',
-        });
+        setProductViewOpened(true);
+    };
+
+    const handleProductViewSuccess = () => {
+        setProductViewOpened(false);
+        setSelectedCatalogItem(null);
+        onClose();
+    };
+
+    const handleBackToCatalog = () => {
+        setProductViewOpened(false);
+        setSelectedCatalogItem(null);
     };
 
     const handleSubmit = async (values: typeof form.values) => {
+        if (!shelf || !freezer) {
+            notifications.show({
+                title: t('common.error'),
+                message: t('product.selectShelfAndFreezer'),
+                color: 'red',
+            });
+            return;
+        }
+
         setLoading(true);
         try {
             const { data: { user } } = await supabase.auth.getUser();
@@ -142,6 +160,8 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
                     .insert({
                         ...productData,
                         user_id: user.id,
+                        added_by_user_id: user.id,
+                        added_at: new Date().toISOString(),
                     });
 
                 if (error) throw error;
@@ -154,10 +174,10 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
             }
 
             onClose();
-        } catch (error: any) {
+        } catch (error: unknown) {
             notifications.show({
                 title: t('common.error'),
-                message: error.message,
+                message: error instanceof Error ? error.message : 'Unknown error',
                 color: 'red',
             });
         } finally {
@@ -221,18 +241,18 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
                                         <Stack gap="xs">
                                             <Group justify="space-between">
                                                 <Text fw={500} size="sm">
-                                                    {item.name}
+                                                    {item.name_en}
                                                 </Text>
                                                 {item.emoji && <Text size="sm">{item.emoji}</Text>}
                                             </Group>
-                                            {item.category && (
+                                            {item.category_en && (
                                                 <Badge size="sm" variant="light">
-                                                    {item.category}
+                                                    {item.category_en}
                                                 </Badge>
                                             )}
-                                            {item.description && (
+                                            {item.description_en && (
                                                 <Text size="xs" c="dimmed" lineClamp={2}>
-                                                    {item.description}
+                                                    {item.description_en}
                                                 </Text>
                                             )}
                                             {item.is_popular && (
@@ -326,6 +346,16 @@ export default function ProductForm({ opened, onClose, shelf, freezer, product }
                     </form>
                 </Tabs.Panel>
             </Tabs>
+
+            <ProductView
+                opened={productViewOpened}
+                onClose={() => setProductViewOpened(false)}
+                onBack={handleBackToCatalog}
+                onSuccess={handleProductViewSuccess}
+                catalogItem={selectedCatalogItem}
+                shelf={shelf || null}
+                freezer={freezer || null}
+            />
         </Modal>
     );
 }

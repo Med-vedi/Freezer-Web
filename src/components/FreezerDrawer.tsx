@@ -8,12 +8,10 @@ import {
     Button,
     Text,
     NumberInput,
-    ActionIcon,
     Skeleton,
     Alert,
 } from '@mantine/core';
 import {
-    IconX,
     IconSettings,
     IconAlertCircle,
 } from '@tabler/icons-react';
@@ -21,7 +19,8 @@ import { useTranslation } from 'react-i18next';
 import { useFreezerStore } from '../store/freezerStore';
 import { notifications } from '@mantine/notifications';
 import ShelfCard from './ShelfCard';
-import { Freezer } from '../types/freezer';
+import ShelfDrawer from './ShelfDrawer';
+import { Freezer, Shelf } from '../types/freezer';
 
 interface FreezerDrawerProps {
     opened: boolean;
@@ -34,6 +33,8 @@ export default function FreezerDrawer({ opened, onClose, freezer }: FreezerDrawe
     const { shelves, loading, error, fetchShelves, updateShelfCount } = useFreezerStore();
     const [shelfCount, setShelfCount] = useState(7);
     const [updatingCount, setUpdatingCount] = useState(false);
+    const [shelfDrawerOpened, setShelfDrawerOpened] = useState(false);
+    const [selectedShelf, setSelectedShelf] = useState<Shelf | null>(null);
 
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export default function FreezerDrawer({ opened, onClose, freezer }: FreezerDrawe
             fetchShelves(freezer.id);
             setShelfCount(shelves.length || 7);
         }
-    }, [opened, freezer, fetchShelves]);
+    }, [opened, freezer, fetchShelves, shelves.length]);
 
     const handleUpdateShelfCount = async () => {
         if (!freezer) return;
@@ -72,20 +73,28 @@ export default function FreezerDrawer({ opened, onClose, freezer }: FreezerDrawe
         }
     };
 
+    const handleShelfClick = (shelf: Shelf) => {
+        setSelectedShelf(shelf);
+        setShelfDrawerOpened(true);
+    };
+
+    const handleShelfDrawerClose = () => {
+        setShelfDrawerOpened(false);
+        setSelectedShelf(null);
+    };
+
+    const handleBackToFreezer = () => {
+        setShelfDrawerOpened(false);
+        setSelectedShelf(null);
+    };
+
     if (!freezer) return null;
 
     return (
         <Drawer
             opened={opened}
             onClose={onClose}
-            title={
-                <Group justify="space-between" w="100%">
-                    <Title order={3}>{freezer.name}</Title>
-                    <ActionIcon variant="subtle" onClick={onClose}>
-                        <IconX size={16} />
-                    </ActionIcon>
-                </Group>
-            }
+            title={<Title order={3}>{freezer.name}</Title>}
             size="xl"
             position="right"
         >
@@ -132,7 +141,10 @@ export default function FreezerDrawer({ opened, onClose, freezer }: FreezerDrawe
                     <Grid>
                         {shelves.map((shelf) => (
                             <Grid.Col key={shelf.id} span={{ base: 12, sm: 6, md: 4 }}>
-                                <ShelfCard shelf={shelf} freezer={freezer} />
+                                <ShelfCard
+                                    shelf={shelf}
+                                    onShelfClick={handleShelfClick}
+                                />
                             </Grid.Col>
                         ))}
                     </Grid>
@@ -144,6 +156,14 @@ export default function FreezerDrawer({ opened, onClose, freezer }: FreezerDrawe
                     </Text>
                 )}
             </Stack>
+
+            <ShelfDrawer
+                opened={shelfDrawerOpened}
+                onClose={handleShelfDrawerClose}
+                onBack={handleBackToFreezer}
+                shelf={selectedShelf}
+                freezer={freezer}
+            />
         </Drawer>
     );
 }

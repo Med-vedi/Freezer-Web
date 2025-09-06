@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
     Card,
     Text,
@@ -7,36 +6,25 @@ import {
     Stack,
     ThemeIcon,
     ActionIcon,
-    Modal,
-    Button,
-    Grid,
     Alert,
 } from '@mantine/core';
 import {
     IconPackage,
-    IconPlus,
     IconEye,
     IconAlertTriangle,
     IconClock,
 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-import { useDisclosure } from '@mantine/hooks';
-import { Shelf, Freezer } from '../types/freezer';
-import { Product } from '../types/product';
+import { Shelf } from '../types/freezer';
 import { getExpiryStatus, getDaysUntilExpiry } from '../utils/date';
-import ProductChip from './ProductChip';
-import ProductForm from './ProductForm';
 
 interface ShelfCardProps {
     shelf: Shelf;
-    freezer: Freezer;
+    onShelfClick: (shelf: Shelf) => void;
 }
 
-export default function ShelfCard({ shelf, freezer }: ShelfCardProps) {
+export default function ShelfCard({ shelf, onShelfClick }: ShelfCardProps) {
     const { t } = useTranslation();
-    const [modalOpened, { open: openModal, close: closeModal }] = useDisclosure(false);
-    const [formOpened, { open: openForm, close: closeForm }] = useDisclosure(false);
-    const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
 
     const products = shelf.products || [];
     const totalProducts = products.length;
@@ -52,19 +40,8 @@ export default function ShelfCard({ shelf, freezer }: ShelfCardProps) {
         return status === 'danger' && getDaysUntilExpiry(product.expiry_date) < 0;
     }).length;
 
-    const handleProductClick = (product: Product) => {
-        setSelectedProduct(product);
-        openModal();
-    };
-
-    const handleAddProduct = () => {
-        setSelectedProduct(null);
-        openForm();
-    };
-
-    const handleEditProduct = (product: Product) => {
-        setSelectedProduct(product);
-        openForm();
+    const handleShelfClick = () => {
+        onShelfClick(shelf);
     };
 
     // const getExpiryColor = (status: string) => {
@@ -84,7 +61,7 @@ export default function ShelfCard({ shelf, freezer }: ShelfCardProps) {
                 radius="md"
                 withBorder
                 style={{ cursor: 'pointer' }}
-                onClick={openModal}
+                onClick={handleShelfClick}
             >
                 <Stack gap="sm">
                     <Group justify="space-between">
@@ -101,7 +78,7 @@ export default function ShelfCard({ shelf, freezer }: ShelfCardProps) {
                             color="gray"
                             onClick={(e) => {
                                 e.stopPropagation();
-                                openModal();
+                                handleShelfClick();
                             }}
                         >
                             <IconEye size={16} />
@@ -144,58 +121,6 @@ export default function ShelfCard({ shelf, freezer }: ShelfCardProps) {
                     )}
                 </Stack>
             </Card>
-
-            <Modal
-                opened={modalOpened}
-                onClose={closeModal}
-                title={
-                    <Text fw={500}>
-                        {shelf.name || t('shelf.shelfNumber', { number: shelf.index_in_freezer })}
-                    </Text>
-                }
-                size="lg"
-            >
-                <Stack gap="md">
-                    <Group justify="space-between">
-                        <Text size="sm" c="dimmed">
-                            {t('shelf.shelfStats.totalProducts', { count: totalProducts })}
-                        </Text>
-                        <Button
-                            leftSection={<IconPlus size={16} />}
-                            onClick={handleAddProduct}
-                            size="sm"
-                        >
-                            {t('shelf.addProduct')}
-                        </Button>
-                    </Group>
-
-                    {totalProducts === 0 ? (
-                        <Text ta="center" c="dimmed" py="xl">
-                            {t('shelf.emptyShelf')}
-                        </Text>
-                    ) : (
-                        <Grid>
-                            {products.map((product) => (
-                                <Grid.Col key={product.id} span={{ base: 12, sm: 6, md: 4 }}>
-                                    <ProductChip
-                                        product={product}
-                                        onClick={() => handleProductClick(product)}
-                                        onEdit={() => handleEditProduct(product)}
-                                    />
-                                </Grid.Col>
-                            ))}
-                        </Grid>
-                    )}
-                </Stack>
-            </Modal>
-
-            <ProductForm
-                opened={formOpened}
-                onClose={closeForm}
-                shelf={shelf}
-                freezer={freezer}
-                product={selectedProduct}
-            />
         </>
     );
 }
