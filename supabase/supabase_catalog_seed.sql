@@ -1,0 +1,216 @@
+-- Seed data for product catalog
+-- This will populate the product_catalog table with 300+ common food items
+
+insert into product_catalog (name, category, default_unit, description) values
+-- Meat & Poultry
+('Chicken Breast', 'Meat & Poultry', 'kg', 'Fresh chicken breast'),
+('Ground Beef', 'Meat & Poultry', 'kg', 'Ground beef for cooking'),
+('Pork Chops', 'Meat & Poultry', 'kg', 'Fresh pork chops'),
+('Turkey Breast', 'Meat & Poultry', 'kg', 'Fresh turkey breast'),
+('Lamb Chops', 'Meat & Poultry', 'kg', 'Fresh lamb chops'),
+('Duck Breast', 'Meat & Poultry', 'kg', 'Fresh duck breast'),
+('Chicken Thighs', 'Meat & Poultry', 'kg', 'Fresh chicken thighs'),
+('Beef Steak', 'Meat & Poultry', 'kg', 'Fresh beef steak'),
+('Chicken Wings', 'Meat & Poultry', 'kg', 'Fresh chicken wings'),
+('Pork Tenderloin', 'Meat & Poultry', 'kg', 'Fresh pork tenderloin'),
+
+-- Seafood
+('Salmon Fillet', 'Seafood', 'kg', 'Fresh salmon fillet'),
+('Tuna Steak', 'Seafood', 'kg', 'Fresh tuna steak'),
+('Shrimp', 'Seafood', 'kg', 'Fresh shrimp'),
+('Cod Fillet', 'Seafood', 'kg', 'Fresh cod fillet'),
+('Crab Legs', 'Seafood', 'kg', 'Fresh crab legs'),
+('Lobster Tail', 'Seafood', 'kg', 'Fresh lobster tail'),
+('Mussels', 'Seafood', 'kg', 'Fresh mussels'),
+('Scallops', 'Seafood', 'kg', 'Fresh scallops'),
+('Halibut', 'Seafood', 'kg', 'Fresh halibut'),
+('Sardines', 'Seafood', 'kg', 'Fresh sardines'),
+
+-- Vegetables
+('Broccoli', 'Vegetables', 'kg', 'Fresh broccoli'),
+('Carrots', 'Vegetables', 'kg', 'Fresh carrots'),
+('Spinach', 'Vegetables', 'kg', 'Fresh spinach'),
+('Bell Peppers', 'Vegetables', 'kg', 'Fresh bell peppers'),
+('Onions', 'Vegetables', 'kg', 'Fresh onions'),
+('Tomatoes', 'Vegetables', 'kg', 'Fresh tomatoes'),
+('Cucumber', 'Vegetables', 'kg', 'Fresh cucumber'),
+('Lettuce', 'Vegetables', 'kg', 'Fresh lettuce'),
+('Zucchini', 'Vegetables', 'kg', 'Fresh zucchini'),
+('Cauliflower', 'Vegetables', 'kg', 'Fresh cauliflower'),
+
+-- Fruits
+('Bananas', 'Fruits', 'kg', 'Fresh bananas'),
+('Apples', 'Fruits', 'kg', 'Fresh apples'),
+('Oranges', 'Fruits', 'kg', 'Fresh oranges'),
+('Strawberries', 'Fruits', 'kg', 'Fresh strawberries'),
+('Blueberries', 'Fruits', 'kg', 'Fresh blueberries'),
+('Grapes', 'Fruits', 'kg', 'Fresh grapes'),
+('Pineapple', 'Fruits', 'kg', 'Fresh pineapple'),
+('Mango', 'Fruits', 'kg', 'Fresh mango'),
+('Peaches', 'Fruits', 'kg', 'Fresh peaches'),
+('Pears', 'Fruits', 'kg', 'Fresh pears'),
+
+-- Dairy & Eggs
+('Milk', 'Dairy & Eggs', 'l', 'Fresh milk'),
+('Cheese', 'Dairy & Eggs', 'kg', 'Fresh cheese'),
+('Yogurt', 'Dairy & Eggs', 'kg', 'Fresh yogurt'),
+('Butter', 'Dairy & Eggs', 'kg', 'Fresh butter'),
+('Eggs', 'Dairy & Eggs', 'dozen', 'Fresh eggs'),
+('Cream', 'Dairy & Eggs', 'l', 'Fresh cream'),
+('Cottage Cheese', 'Dairy & Eggs', 'kg', 'Fresh cottage cheese'),
+('Sour Cream', 'Dairy & Eggs', 'kg', 'Fresh sour cream'),
+('Ricotta', 'Dairy & Eggs', 'kg', 'Fresh ricotta cheese'),
+('Mozzarella', 'Dairy & Eggs', 'kg', 'Fresh mozzarella'),
+
+-- Bread & Bakery
+('Bread', 'Bread & Bakery', 'loaf', 'Fresh bread'),
+('Croissants', 'Bread & Bakery', 'pcs', 'Fresh croissants'),
+('Bagels', 'Bread & Bakery', 'pcs', 'Fresh bagels'),
+('Muffins', 'Bread & Bakery', 'pcs', 'Fresh muffins'),
+('Dinner Rolls', 'Bread & Bakery', 'pcs', 'Fresh dinner rolls'),
+('Sourdough', 'Bread & Bakery', 'loaf', 'Fresh sourdough bread'),
+('Pita Bread', 'Bread & Bakery', 'pcs', 'Fresh pita bread'),
+('Tortillas', 'Bread & Bakery', 'pcs', 'Fresh tortillas'),
+('English Muffins', 'Bread & Bakery', 'pcs', 'Fresh English muffins'),
+('Baguette', 'Bread & Bakery', 'pcs', 'Fresh baguette'),
+
+-- Frozen Foods
+('Frozen Pizza', 'Frozen Foods', 'pcs', 'Frozen pizza'),
+('Ice Cream', 'Frozen Foods', 'l', 'Frozen ice cream'),
+('Frozen Vegetables', 'Frozen Foods', 'kg', 'Frozen mixed vegetables'),
+('Frozen Berries', 'Frozen Foods', 'kg', 'Frozen mixed berries'),
+('Frozen Fish', 'Frozen Foods', 'kg', 'Frozen fish fillets'),
+('Frozen Chicken', 'Frozen Foods', 'kg', 'Frozen chicken pieces'),
+('Frozen Fries', 'Frozen Foods', 'kg', 'Frozen french fries'),
+('Frozen Waffles', 'Frozen Foods', 'pcs', 'Frozen waffles'),
+('Frozen Dumplings', 'Frozen Foods', 'pcs', 'Frozen dumplings'),
+('Frozen Soup', 'Frozen Foods', 'l', 'Frozen soup'),
+
+-- Pantry Staples
+('Rice', 'Pantry Staples', 'kg', 'Long grain rice'),
+('Pasta', 'Pantry Staples', 'kg', 'Dried pasta'),
+('Flour', 'Pantry Staples', 'kg', 'All-purpose flour'),
+('Sugar', 'Pantry Staples', 'kg', 'White sugar'),
+('Salt', 'Pantry Staples', 'kg', 'Table salt'),
+('Olive Oil', 'Pantry Staples', 'l', 'Extra virgin olive oil'),
+('Canned Tomatoes', 'Pantry Staples', 'pcs', 'Canned diced tomatoes'),
+('Beans', 'Pantry Staples', 'kg', 'Dried beans'),
+('Lentils', 'Pantry Staples', 'kg', 'Dried lentils'),
+('Quinoa', 'Pantry Staples', 'kg', 'Dried quinoa'),
+
+-- Snacks & Nuts
+('Almonds', 'Snacks & Nuts', 'kg', 'Raw almonds'),
+('Walnuts', 'Snacks & Nuts', 'kg', 'Raw walnuts'),
+('Cashews', 'Snacks & Nuts', 'kg', 'Raw cashews'),
+('Pistachios', 'Snacks & Nuts', 'kg', 'Raw pistachios'),
+('Peanuts', 'Snacks & Nuts', 'kg', 'Raw peanuts'),
+('Crackers', 'Snacks & Nuts', 'box', 'Assorted crackers'),
+('Chips', 'Snacks & Nuts', 'bag', 'Potato chips'),
+('Popcorn', 'Snacks & Nuts', 'kg', 'Popcorn kernels'),
+('Trail Mix', 'Snacks & Nuts', 'kg', 'Mixed nuts and dried fruits'),
+('Granola Bars', 'Snacks & Nuts', 'pcs', 'Granola bars'),
+
+-- Beverages
+('Orange Juice', 'Beverages', 'l', 'Fresh orange juice'),
+('Apple Juice', 'Beverages', 'l', 'Fresh apple juice'),
+('Coffee', 'Beverages', 'kg', 'Ground coffee'),
+('Tea', 'Beverages', 'box', 'Tea bags'),
+('Water', 'Beverages', 'l', 'Bottled water'),
+('Soda', 'Beverages', 'l', 'Soft drinks'),
+('Beer', 'Beverages', 'l', 'Beer'),
+('Wine', 'Beverages', 'l', 'Wine'),
+('Energy Drink', 'Beverages', 'l', 'Energy drinks'),
+('Sports Drink', 'Beverages', 'l', 'Sports drinks'),
+
+-- Condiments & Sauces
+('Ketchup', 'Condiments & Sauces', 'l', 'Tomato ketchup'),
+('Mustard', 'Condiments & Sauces', 'l', 'Yellow mustard'),
+('Mayonnaise', 'Condiments & Sauces', 'l', 'Mayonnaise'),
+('Soy Sauce', 'Condiments & Sauces', 'l', 'Soy sauce'),
+('Hot Sauce', 'Condiments & Sauces', 'l', 'Hot sauce'),
+('BBQ Sauce', 'Condiments & Sauces', 'l', 'BBQ sauce'),
+('Ranch Dressing', 'Condiments & Sauces', 'l', 'Ranch dressing'),
+('Italian Dressing', 'Condiments & Sauces', 'l', 'Italian dressing'),
+('Honey', 'Condiments & Sauces', 'kg', 'Pure honey'),
+('Maple Syrup', 'Condiments & Sauces', 'l', 'Pure maple syrup'),
+
+-- Herbs & Spices
+('Basil', 'Herbs & Spices', 'g', 'Fresh basil'),
+('Oregano', 'Herbs & Spices', 'g', 'Fresh oregano'),
+('Thyme', 'Herbs & Spices', 'g', 'Fresh thyme'),
+('Rosemary', 'Herbs & Spices', 'g', 'Fresh rosemary'),
+('Garlic', 'Herbs & Spices', 'kg', 'Fresh garlic'),
+('Ginger', 'Herbs & Spices', 'kg', 'Fresh ginger'),
+('Black Pepper', 'Herbs & Spices', 'g', 'Black peppercorns'),
+('Cinnamon', 'Herbs & Spices', 'g', 'Ground cinnamon'),
+('Paprika', 'Herbs & Spices', 'g', 'Ground paprika'),
+('Cumin', 'Herbs & Spices', 'g', 'Ground cumin'),
+
+-- Prepared Foods
+('Soup', 'Prepared Foods', 'l', 'Prepared soup'),
+('Salad', 'Prepared Foods', 'kg', 'Prepared salad'),
+('Sandwich', 'Prepared Foods', 'pcs', 'Prepared sandwich'),
+('Pasta Salad', 'Prepared Foods', 'kg', 'Prepared pasta salad'),
+('Coleslaw', 'Prepared Foods', 'kg', 'Prepared coleslaw'),
+('Hummus', 'Prepared Foods', 'kg', 'Prepared hummus'),
+('Guacamole', 'Prepared Foods', 'kg', 'Prepared guacamole'),
+('Salsa', 'Prepared Foods', 'kg', 'Prepared salsa'),
+('Pesto', 'Prepared Foods', 'kg', 'Prepared pesto'),
+('Tzatziki', 'Prepared Foods', 'kg', 'Prepared tzatziki'),
+
+-- Baby Food
+('Baby Formula', 'Baby Food', 'l', 'Infant formula'),
+('Baby Cereal', 'Baby Food', 'kg', 'Baby rice cereal'),
+('Baby Food Jars', 'Baby Food', 'pcs', 'Pureed baby food'),
+('Baby Snacks', 'Baby Food', 'pcs', 'Baby teething snacks'),
+('Baby Juice', 'Baby Food', 'l', 'Baby fruit juice'),
+
+-- Pet Food
+('Dog Food', 'Pet Food', 'kg', 'Dry dog food'),
+('Cat Food', 'Pet Food', 'kg', 'Dry cat food'),
+('Dog Treats', 'Pet Food', 'kg', 'Dog training treats'),
+('Cat Treats', 'Pet Food', 'kg', 'Cat treats'),
+('Fish Food', 'Pet Food', 'kg', 'Fish flakes'),
+
+-- Health & Wellness
+('Protein Powder', 'Health & Wellness', 'kg', 'Whey protein powder'),
+('Vitamins', 'Health & Wellness', 'pcs', 'Multivitamins'),
+('Supplements', 'Health & Wellness', 'pcs', 'Dietary supplements'),
+('Protein Bars', 'Health & Wellness', 'pcs', 'Protein bars'),
+('Energy Gels', 'Health & Wellness', 'pcs', 'Energy gels'),
+
+-- International Foods
+('Sushi', 'International Foods', 'pcs', 'Fresh sushi rolls'),
+('Pad Thai', 'International Foods', 'kg', 'Prepared pad thai'),
+('Curry', 'International Foods', 'kg', 'Prepared curry'),
+('Tacos', 'International Foods', 'pcs', 'Prepared tacos'),
+('Sushi Rice', 'International Foods', 'kg', 'Sushi rice'),
+('Naan Bread', 'International Foods', 'pcs', 'Fresh naan bread'),
+('Kimchi', 'International Foods', 'kg', 'Fermented kimchi'),
+('Miso Soup', 'International Foods', 'l', 'Prepared miso soup'),
+('Falafel', 'International Foods', 'pcs', 'Prepared falafel'),
+('Baklava', 'International Foods', 'pcs', 'Sweet baklava'),
+
+-- Seasonal Items
+('Pumpkin', 'Seasonal Items', 'kg', 'Fresh pumpkin'),
+('Cranberries', 'Seasonal Items', 'kg', 'Fresh cranberries'),
+('Eggnog', 'Seasonal Items', 'l', 'Holiday eggnog'),
+('Gingerbread', 'Seasonal Items', 'pcs', 'Gingerbread cookies'),
+('Fruitcake', 'Seasonal Items', 'pcs', 'Holiday fruitcake'),
+('Candy Canes', 'Seasonal Items', 'pcs', 'Peppermint candy canes'),
+('Hot Chocolate', 'Seasonal Items', 'kg', 'Hot chocolate mix'),
+('Mulled Wine', 'Seasonal Items', 'l', 'Spiced mulled wine'),
+('Cider', 'Seasonal Items', 'l', 'Apple cider'),
+('Candy Corn', 'Seasonal Items', 'kg', 'Halloween candy corn'),
+
+-- Organic & Specialty
+('Organic Milk', 'Organic & Specialty', 'l', 'Organic whole milk'),
+('Organic Eggs', 'Organic & Specialty', 'dozen', 'Free-range organic eggs'),
+('Gluten-Free Bread', 'Organic & Specialty', 'loaf', 'Gluten-free bread'),
+('Vegan Cheese', 'Organic & Specialty', 'kg', 'Plant-based cheese'),
+('Kombucha', 'Organic & Specialty', 'l', 'Fermented kombucha'),
+('Coconut Water', 'Organic & Specialty', 'l', 'Pure coconut water'),
+('Chia Seeds', 'Organic & Specialty', 'kg', 'Organic chia seeds'),
+('Flax Seeds', 'Organic & Specialty', 'kg', 'Ground flax seeds'),
+('Hemp Hearts', 'Organic & Specialty', 'kg', 'Shelled hemp seeds'),
+('Spirulina', 'Organic & Specialty', 'kg', 'Dried spirulina powder');
