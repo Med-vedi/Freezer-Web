@@ -150,6 +150,25 @@ export const useFreezerStore = create<FreezerState>((set, get) => ({
     fetchShelves: async (freezerId: string) => {
         set({ loading: true, error: null });
         try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                set({ error: 'User not authenticated', loading: false });
+                return;
+            }
+
+            // Сначала проверяем, что морозильная камера принадлежит пользователю
+            const { data: freezer, error: freezerError } = await supabase
+                .from('freezers')
+                .select('id, user_id')
+                .eq('id', freezerId)
+                .eq('user_id', user.id)
+                .single();
+
+            if (freezerError || !freezer) {
+                set({ error: 'Freezer not found or access denied', loading: false });
+                return;
+            }
+
             const { data, error } = await supabase
                 .from('shelves')
                 .select(`
